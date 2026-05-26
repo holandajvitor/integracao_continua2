@@ -23,7 +23,7 @@ jobs:
         go-version: ${{ matrix.go_version }}
       
     - name: Create-DB
-      run: docker compose up -d --wait
+      run: docker compose up -d --wait postgres
 
     - name: Test
       run: go test -v .
