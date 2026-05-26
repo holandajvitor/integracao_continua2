@@ -1,0 +1,42 @@
+name: Go
+
+on:
+  push:
+    branches: [ '*' ]
+  pull_request:
+    branches: [ '*' ]
+
+jobs:
+
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        go_version: ['1.18', '1.19']
+        os: ['ubuntu-latest']
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: ${{ matrix.go_version }}
+      
+    - name: Create-DB
+      run: docker compose up -d --wait
+
+    - name: Test
+      run: go test -v .
+      
+   
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.19'
+    - name: Build
+      run: go build -v .
