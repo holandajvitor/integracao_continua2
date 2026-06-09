@@ -34,7 +34,6 @@ jobs:
     - name: Test
       run: go test -v .
       
-   
   build:
     needs: test
     runs-on: ubuntu-latest
@@ -47,6 +46,6 @@ jobs:
     - name: Build
       run: go build -v .
 
-    docker: 
-      needs: build
-      uses: ./.github/workflows/Docker.yml
+  docker:
+    needs: build
+    uses: ./.github/workflows/Docker.yml
