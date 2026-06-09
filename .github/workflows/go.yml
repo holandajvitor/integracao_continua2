@@ -46,3 +46,7 @@ jobs:
         go-version: '1.19'
     - name: Build
       run: go build -v .
+
+    docker: 
+      needs: build
+      uses: ./.github/workflows/Docker.yml
