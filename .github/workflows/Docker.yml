@@ -23,3 +23,13 @@ jobs:
       with:
         push: true
         tags: holandajvitor/seu-app:latest
+
+    - name: Build and push Docker images
+      uses: docker/build-push-action@v7.2.0
+      with:
+        context: .
+        file:  ./Dockerfile
+        push: true
+        tags: holandajvitor/go_ci:${{github.ref_name}}
+        
+              
